@@ -9,6 +9,9 @@ class Storeitems extends React.Component{
         this.state = {
             storeitemslist:[]
         }
+        this.state = {
+            viewedItems:[]
+        }
     }
 
     async componentDidMount(){
@@ -19,9 +22,10 @@ class Storeitems extends React.Component{
         try{
             const storeitems = (await axios.get('http://localhost:8080/StoreItem')).data;
             const storeItemsL = storeitems.map((storeitem, index)=>
-                <li key={index}>{storeitem.storeItemName}{<button>Purchase Item</button>}</li>
+                <li key={index}>{<button>'View Item'</button>}{storeitem.storeItemName}{<button>Purchase Item</button>}</li>
             );
             this.setState({storeitemslist:(<ul>{storeItemsL}</ul>)});
+            this.viewedItems.push(storeitems.storeItemName);
         }catch(err){
             console.log(err);
         }
@@ -38,7 +42,9 @@ class Storeitems extends React.Component{
                     horizontal={false}
                 >
                     {this.state.storeitemslist}
+
                 </ScrollArea>
+                <span>Viewed Items{this.state.viewedItems}</span>
             </div>
         );
     }
