@@ -22,10 +22,14 @@ class Storeitems extends React.Component{
         try{
             const storeitems = (await axios.get('http://localhost:8080/StoreItem')).data;
             const storeItemsL = storeitems.map((storeitem, index)=>
-                <li key={index}>{<button>'View Item'</button>}{storeitem.storeItemName}{<button>Purchase Item</button>}</li>
+                <li key={index}>
+                {storeitem.storeItemName}
+                {<button>Purchase Item</button>}
+                {<button>'View Item'</button>}
+                </li>
             );
             this.setState({storeitemslist:(<ul>{storeItemsL}</ul>)});
-            this.viewedItems.push(storeitems.storeItemName);
+
         }catch(err){
             console.log(err);
         }
@@ -44,7 +48,15 @@ class Storeitems extends React.Component{
                     {this.state.storeitemslist}
 
                 </ScrollArea>
-                <span>Viewed Items{this.state.viewedItems}</span>
+                <span>Viewed Items</span>
+                <ScrollArea
+                    speed={0.8}
+                    className="area"
+                    contentClassName="content"
+                    horizontal={true}
+                >
+                    {this.state.storeitemslist}
+                </ScrollArea>
             </div>
         );
     }
