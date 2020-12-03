@@ -19,7 +19,7 @@ class Storeitems extends React.Component{
         try{
             const storeitems = (await axios.get('http://localhost:8080/StoreItem')).data;
             const storeItemsL = storeitems.map((storeitem, index)=>
-                <li key={index}>{storeitem.storeItemName}</li>
+                <li key={index}>{storeitem.storeItemName}{<button>Purchase Item</button>}</li>
             );
             this.setState({storeitemslist:(<ul>{storeItemsL}</ul>)});
         }catch(err){
@@ -30,6 +30,7 @@ class Storeitems extends React.Component{
     render(){
         return(
             <div className={"Storeitems"}>
+                <span>Items available for purchase:</span>
                 <ScrollArea
                     speed={0.8}
                     className="area"
